@@ -6,6 +6,30 @@
 
 #import "GeneratedPluginRegistrant.h"
 
+#if __has_include(<assets_audio_player/AssetsAudioPlayerPlugin.h>)
+#import <assets_audio_player/AssetsAudioPlayerPlugin.h>
+#else
+@import assets_audio_player;
+#endif
+
+#if __has_include(<assets_audio_player_web/AssetsAudioPlayerWebPlugin.h>)
+#import <assets_audio_player_web/AssetsAudioPlayerWebPlugin.h>
+#else
+@import assets_audio_player_web;
+#endif
+
+#if __has_include(<audioplayers/AudioplayersPlugin.h>)
+#import <audioplayers/AudioplayersPlugin.h>
+#else
+@import audioplayers;
+#endif
+
+#if __has_include(<file_picker/FilePickerPlugin.h>)
+#import <file_picker/FilePickerPlugin.h>
+#else
+@import file_picker;
+#endif
+
 #if __has_include(<flutter_local_notifications/FlutterLocalNotificationsPlugin.h>)
 #import <flutter_local_notifications/FlutterLocalNotificationsPlugin.h>
 #else
@@ -42,6 +66,12 @@
 @import share_plus;
 #endif
 
+#if __has_include(<shared_preferences_ios/FLTSharedPreferencesPlugin.h>)
+#import <shared_preferences_ios/FLTSharedPreferencesPlugin.h>
+#else
+@import shared_preferences_ios;
+#endif
+
 #if __has_include(<sqflite/SqflitePlugin.h>)
 #import <sqflite/SqflitePlugin.h>
 #else
@@ -57,12 +87,17 @@
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
+  [AssetsAudioPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"AssetsAudioPlayerPlugin"]];
+  [AssetsAudioPlayerWebPlugin registerWithRegistrar:[registry registrarForPlugin:@"AssetsAudioPlayerWebPlugin"]];
+  [AudioplayersPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersPlugin"]];
+  [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
   [GeolocatorPlugin registerWithRegistrar:[registry registrarForPlugin:@"GeolocatorPlugin"]];
   [ImageGallerySaverPlugin registerWithRegistrar:[registry registrarForPlugin:@"ImageGallerySaverPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
   [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [FLTSharePlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharePlusPlugin"]];
+  [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
 }

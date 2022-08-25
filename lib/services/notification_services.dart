@@ -37,22 +37,28 @@ class NotificationServices {
   }
 
   Future<void> showNotification(
-      int id, String title, String body, int seconds) async {
+      {@required int id,
+      @required String title,
+      @required String body,
+      @required int seconds,
+      @required String sound}) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
       body,
       tz.TZDateTime.now(tz.local).add(Duration(seconds: seconds)),
-      const NotificationDetails(
+      NotificationDetails(
         android: AndroidNotificationDetails(
           'channelId',
           'channelName',
           importance: Importance.max,
           priority: Priority.max,
           icon: '@drawable/ic_flutternotification',
-          color: Color(0xff8ffcff),
+          color: const Color(0xff8ffcff),
+          playSound: true,
+          sound: RawResourceAndroidNotificationSound(sound),
         ),
-        iOS: IOSNotificationDetails(
+        iOS: const IOSNotificationDetails(
           sound: 'default.wav',
           presentAlert: true,
           presentBadge: true,

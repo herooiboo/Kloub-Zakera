@@ -1,6 +1,7 @@
 import 'package:azkark/util/helpers.dart';
 import 'package:provider/provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../services/services_export.dart';
 import '../../util/background.dart';
 import '../../widgets/settings_widget/setting_font_size.dart';
 import '../../widgets/settings_widget/setting_font_type.dart';
@@ -10,7 +11,6 @@ import '../../util/colors.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
@@ -70,7 +70,8 @@ class Settings extends StatelessWidget {
                   activeTitle: translate(context, 'popup_menu_counter_true'),
                   inactiveTitle: translate(context, 'popup_menu_counter_false'),
                   nameField: 'counter',
-                  borderRadius: const BorderRadius.only(topLeft:  Radius.circular(20)),
+                  borderRadius:
+                      const BorderRadius.only(topLeft: Radius.circular(20)),
                 ),
                 SettingsItem(
                   activeTitle: translate(context, 'popup_menu_diacritics_true'),
@@ -143,76 +144,108 @@ class Settings extends StatelessWidget {
           Container(
             decoration: _decoration(),
             child: Column(
-              children:  <Widget>[
-                Row(children: [Radio(
-                    activeColor:Colors.cyan,
-                    value: 1,
-                    groupValue:Provider.of<SettingsProvider>(context).value,
-                    onChanged: (value) {
-                      Provider.of<SettingsProvider>(context).save_data(value);
-                    }),
-                  Text(
-                    "الحرم المكي",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade800,
+              children: <Widget>[
+                Row(
+                  children: [
+                    Radio(
+                        activeColor: Colors.cyan,
+                        value: 1,
+                        groupValue:
+                            Provider.of<SettingsProvider>(context, listen: true)
+                                .value,
+                        onChanged: (value) async{
+                          await setAzanSound("a");
+                          Provider.of<SettingsProvider>(context, listen: false)
+                              .save_data(value.toString(), 1);
+                        }),
+                    Text(
+                      "الحرم المكي",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade800,
+                      ),
                     ),
-                  ),],),
+                  ],
+                ),
                 const SizedBox(
                   width: 25,
                 ),
-                Row(children: [Radio(
-                    value: 2,
-                    activeColor:Colors.cyan,
-                    groupValue: Provider.of<SettingsProvider>(context).value,
-                    onChanged: (value) {
-                      Provider.of<SettingsProvider>(context).save_data(value);
-                    }),
-                  Text(
-                    "أذان القدس",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade800,
+                Row(
+                  children: [
+                    Radio(
+                        value: 2,
+                        activeColor: Colors.cyan,
+                        groupValue:
+                            Provider.of<SettingsProvider>(context, listen: true)
+                                .value,
+                        onChanged: (value) async{
+                          await setAzanSound("b");
+                          Provider.of<SettingsProvider>(context, listen: false)
+                              .save_data(value.toString(), 2);
+                        }),
+                    Text(
+                      "أذان القدس",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade800,
+                      ),
                     ),
-                  ),],),
+                  ],
+                ),
                 const SizedBox(
                   width: 25,
                 ),
-                Row(children: [Radio(
-                    value: 2,
-                    activeColor:Colors.cyan,
-                    groupValue: Provider.of<SettingsProvider>(context).value,
-                    onChanged: (value) {
-                      Provider.of<SettingsProvider>(context).save_data(value);
-                    }),
-                  Text(
-                    "العفاسي ",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade800,
+                Row(
+                  children: [
+                    Radio(
+                        value: 3,
+                        activeColor: Colors.cyan,
+                        groupValue:
+                            Provider.of<SettingsProvider>(context, listen: true)
+                                .value,
+                        onChanged: (value) async{
+                          await setAzanSound("c");
+                          Provider.of<SettingsProvider>(context, listen: false)
+                              .save_data(value.toString(), 3);
+                        }),
+                    Text(
+                      "العفاسي ",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade800,
+                      ),
                     ),
-                  ),],),
+                  ],
+                ),
                 const SizedBox(
                   width: 25,
                 ),
-                Row(children: [Radio(
-                    value: 2,
-                    activeColor:Colors.cyan,
-                    groupValue: Provider.of<SettingsProvider>(context).value,
-                    onChanged: (value) {
-                      Provider.of<SettingsProvider>(context).save_data(value);
-                    }),
-                  Text(
-                    "مكه المكرمة ",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade800,
+                Row(
+                  children: [
+                    Radio(
+                        value: 4,
+                        activeColor: Colors.cyan,
+                        groupValue:
+                            Provider.of<SettingsProvider>(context, listen: true)
+                                .value,
+                        onChanged: (value) async{
+                          await setAzanSound("d");
+                          Provider.of<SettingsProvider>(context, listen: false)
+                              .save_data(value.toString(), 4);
+                        }),
+                    Text(
+                      "مكه المكرمة ",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade800,
+                      ),
                     ),
-                  ),],),
+                  ],
+                ),
               ],
             ),
           ),

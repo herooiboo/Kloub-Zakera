@@ -18,9 +18,11 @@ class SettingsProvider with ChangeNotifier {
 
   String val = 'a.mp3';
 
-  Future save_data(String vall) async {
+  Future save_data(String vall,int radioId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('status', vall);
+    value = radioId;
+    notifyListeners();
   }
 
   Future get_data() async {

@@ -1,11 +1,11 @@
 import 'package:azkark/pages/quran/quran.dart';
-import 'package:azkark/services/notification_services.dart';
-import 'package:azkark/util/print_log.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../services/services_export.dart';
 import '../../util/helpers.dart';
 import '../../pages/search/search_azkar.dart';
 import '../../util/navigate_between_pages/fade_route.dart';
+import '../../util/print_log.dart';
 import '../../widgets/search_widget/search_bar.dart';
 import '../../util/navigate_between_pages/scale_route.dart';
 import '../../pages/settings/settings_page.dart';
@@ -23,8 +23,35 @@ import 'package:provider/provider.dart';
 import '../../util/colors.dart';
 import '../prayerTimings/prayTimes.dart';
 
+class HomePage extends StatefulWidget {
+  const HomePage({Key key}) : super(key: key);
 
-class HomePage extends StatelessWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Future sendPermissionLocation() async {
+    await Permission.location.request();
+    if (await Permission.location.status.isGranted) {
+      // Use location.
+      await startAzanNotification();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              "يجب عليك السماح بتحديد الموقع لجب مواعيد الصلاة حسب منطقتك")));
+      printLog(
+          stateID: "528943", data: "Permission not accepted", isSuccess: false);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    sendPermissionLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final sectionsProvider =
@@ -39,7 +66,7 @@ class HomePage extends StatelessWidget {
             backgroundColor: Colors.blue,
             title: Text(
               translate(context, 'home_bar'),
-              style: new TextStyle(
+              style: TextStyle(
                 color: Colors.blue[50],
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
