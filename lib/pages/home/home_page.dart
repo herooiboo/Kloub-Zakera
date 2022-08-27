@@ -31,6 +31,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future sendPermissionNotification() async {
+    await Permission.notification.request();
+    if (await Permission.notification.status.isGranted) {
+      // Use notification.
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("يجب عليك السماح للإشعارات لتنبيهك لوقت الصلاة")));
+      printLog(
+          stateID: "510532",
+          data: "Permission Notification not accepted",
+          isSuccess: false);
+    }
+  }
+
   Future sendPermissionLocation() async {
     await Permission.location.request();
     if (await Permission.location.status.isGranted) {
@@ -41,7 +55,9 @@ class _HomePageState extends State<HomePage> {
           content: Text(
               "يجب عليك السماح بتحديد الموقع لجب مواعيد الصلاة حسب منطقتك")));
       printLog(
-          stateID: "528943", data: "Permission not accepted", isSuccess: false);
+          stateID: "528943",
+          data: "Permission location not accepted",
+          isSuccess: false);
     }
   }
 
@@ -49,6 +65,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     sendPermissionLocation();
+    sendPermissionNotification;
     super.initState();
   }
 
