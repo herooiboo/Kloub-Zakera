@@ -122,16 +122,26 @@ startAzanNotification() async {
       NetworkInfoImpl(InternetConnectionChecker.createInstance());
   myPref = await SharedPreferences.getInstance();
 
+
+  /// Start test for azan with notification
+  await AndroidAlarmManager.oneShotAt(
+    DateTime.parse("2022-08-25 11:44"),
+    0,
+    startNotification,
+    wakeup: true,
+  );
+  /// End test
+
   if (await networkInfo.isConnected) {
     if (await getAzanNextDay() == true) {
-      // if (listAzanTime[0].isAfter(DateTime.now())) {
+      if (listAzanTime[0].isAfter(DateTime.now())) {
         await AndroidAlarmManager.oneShotAt(
           listAzanTime[0],
           0,
           startNotification,
           wakeup: true,
         );
-      // }
+      }
 
       if (listAzanTime[1].isAfter(DateTime.now())) {
         await AndroidAlarmManager.oneShotAt(
