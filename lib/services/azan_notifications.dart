@@ -124,14 +124,14 @@ startAzanNotification() async {
 
   if (await networkInfo.isConnected) {
     if (await getAzanNextDay() == true) {
-      if (listAzanTime[0].isAfter(DateTime.now())) {
+      // if (listAzanTime[0].isAfter(DateTime.now())) {
         await AndroidAlarmManager.oneShotAt(
           listAzanTime[0],
           0,
           startNotification,
           wakeup: true,
         );
-      }
+      // }
 
       if (listAzanTime[1].isAfter(DateTime.now())) {
         await AndroidAlarmManager.oneShotAt(
