@@ -117,6 +117,7 @@ Future<bool> getAzanNextDay() async {
 
 /// Step 1 of 3
 startAzanNotification() async {
+  await AndroidAlarmManager.initialize();
   final NetworkInfo networkInfo =
       NetworkInfoImpl(InternetConnectionChecker.createInstance());
   myPref = await SharedPreferences.getInstance();
@@ -170,11 +171,13 @@ startAzanNotification() async {
 
       String fullDate = myCustomDateTimeYYYYMMDD() + " 00:10";
       await AndroidAlarmManager.oneShotAt(
-        DateTime.parse(fullDate).add(const Duration(days: 1)),
-        5,
-        getAzanNextDay,
-        wakeup: true,
-      );
+          DateTime.parse(fullDate).add(const Duration(days: 1)),
+          5,
+          getAzanNextDay,
+          wakeup: true,
+          allowWhileIdle: true,
+          exact: true,
+          rescheduleOnReboot: true);
     } else {
       printLog(
           stateID: "521035", data: "Error in getAzanNextDay", isSuccess: false);
@@ -195,8 +198,9 @@ startAzanNotification() async {
 
 /// Step 2 of 3
 void startNotification() async {
+  // final int isolateId = Isolate.current.hashCode;
   await initTimeZonesAndNotification();
-  printLog(stateID: "442902", data: "-----", isSuccess: true);
+  printLog(stateID: "442902", data: "startNotification", isSuccess: true);
   NotificationServices().showNotification(
       id: 1,
       title: "وقت الصلاة الآن",
