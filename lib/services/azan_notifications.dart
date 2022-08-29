@@ -117,7 +117,7 @@ Future<bool> getAzanNextDay() async {
 
 /// Step 1 of 3
 startAzanNotification() async {
-  await AndroidAlarmManager.initialize();
+  // await AndroidAlarmManager.initialize();
   final NetworkInfo networkInfo =
       NetworkInfoImpl(InternetConnectionChecker.createInstance());
   myPref = await SharedPreferences.getInstance();
